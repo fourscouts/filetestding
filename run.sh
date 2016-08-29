@@ -10,3 +10,8 @@ else
 	hostname > /data/mijn-pod-naam
 fi
 
+echo "Sleeping..."
+
+sleep infinity
+
+exit 0
