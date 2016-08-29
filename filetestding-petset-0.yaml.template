@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: filetestding-0
+  name: filetestding-0
+spec:
+  clusterIP: None
+  ports:
+  selector:
+    app: filetestding-0-data
+----
+apiVersion: "apps/v1alpha1"
+kind: PetSet
+metadata:
+  name: filetestding-0
+spec:
+  serviceName: filetestding-0
+  replicas: 2
+  template:
+    metadata:
+      annotations:
+        pod.alpha.kubernetes.io/initialized: "true"
+      labels:
+        app: filetestding-0-data
+    spec:
+      containers:
+        - image: fourstacks/filetestding:latest
+          name: filetestding-0
+          volumeMounts:
+            - mountPath: /data
+              name: filetestding-0-data
+  volumeClaimTemplates:
+  - metadata:
+      name: filetestding-0-data
+      annotations:
+        volume.alpha.kubernetes.io/storage-class: anything
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 1Gi
