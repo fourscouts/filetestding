@@ -12,6 +12,6 @@ fi
 
 echo "Sleeping..."
 
-sleep infinity
+while true; do sleep 86400; done
 
 exit 0
